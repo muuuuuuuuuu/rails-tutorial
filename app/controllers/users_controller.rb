@@ -13,8 +13,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
     #下は演習のコード
-    redirect_to root_url and return unless @user.activated?
-
+    #redirect_to root_url and return unless @user.activated?
   end
 
   def new
@@ -59,16 +58,8 @@ class UsersController < ApplicationController
                              :password_confirmation)
   end
 
-  #beforeアクション
+  #beforeフィルター
 
-  #ログイン済みユーザーかどうか確認
-  def logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to login_url
-    end
-  end
 
   #正しいユーザーかどうか確認
   def correct_user
